@@ -1,37 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Buhara Pomodoro Zamanlayıcı
 
-## Getting Started
+Buhara Pomodoro Zamanlayıcı, odaklanmanıza ve üretkenliğinizi artırmanıza yardımcı olacak bir zaman yönetim aracıdır. Motivasyon cümleleri ile çalışma sürecinizi destekler ve Pomodoro tekniğine göre çalışma/ara sürelerini ayarlar.
 
-First, run the development server:
+## Özellikler
 
-```bash
+- **25 dakika çalışma süresi ve 5 dakika ara** ile Pomodoro tekniğine uygun zamanlayıcı.
+- Her 10 saniyede bir değişen **motivasyon cümleleri**.
+- Çalışma ve ara bitiminde **sesli bildirimler**.
+- **Mobil cihazlar için uyumlu** tasarım.
+- Modern **Tailwind CSS** ile şık ve animasyonlu arayüz.
+
+## Kurulum
+
+Projeyi klonlayın:
+\`\`\`bash
+git clone https://github.com/kullanici_adi/buhara-pomodoro-timer.git
+\`\`\`
+
+Bağımlılıkları yükleyin:
+\`\`\`bash
+npm install
+\`\`\`
+
+Projeyi başlatın:
+\`\`\`bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+\`\`\`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Kullanım
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+1. "Başla" butonuna tıklayarak zamanlayıcıyı başlatabilirsiniz.
+2. Zamanlayıcı tamamlandığında, ara süresi otomatik olarak başlar.
+3. İstediğiniz zaman "Duraklat" veya "Sıfırla" butonlarını kullanabilirsiniz.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Katkıda Bulunun
 
-## Learn More
+Katkıda bulunmak için bir "fork" yapın, yeni bir özellik ekleyin veya hataları düzeltin ve ardından bir "pull request" gönderin.
 
-To learn more about Next.js, take a look at the following resources:
+## Lisans
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# buhara-pomodoro-timer
+Bu proje, [GPL Lisansı](LICENSE) ile lisanslanmıştır.
