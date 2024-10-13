@@ -9,32 +9,17 @@ const PomodoroTimer = () => {
   const [quoteVisible, setQuoteVisible] = useState(true);
 
   const quotes = [
-    "İlerlemenizi engelleyen tek şey kendinizsiniz.",
-    "Başlamak, başarmanın yarısıdır.",
-    "Her gün bir adım at, hedeflerine ulaş.",
-    "Kendine inan, başkaları da inansın.",
-    "Hedeflerini gözünde canlandır, ona ulaşmak için çaba göster.",
-    "Başarısızlık, başarıya giden yoldaki bir duraktır.",
-    "Büyük hayaller büyük adımlar gerektirir.",
-    "Her yeni gün yeni bir fırsattır.",
-    "Zorluklar, büyüme fırsatlarıdır.",
-    "Kendini geliştir, daima daha iyiye ulaş.",
-    "Bugün yapmadığın, yarın yapmanı zorlaştırır.",
-    "Hayallerini gerçeğe dönüştürmek için ilk adımı at.",
-    "Başarısızlık, cesaretin kaynağıdır.",
-    "Düşünceleriniz, hayatınızın yönünü belirler.",
-    "Hayatta en büyük risk, risk almamaktır.",
-    "Kendinize güvenin, potansiyelinizin farkına varın.",
-    "Başarı, sabır ve azimle gelir.",
-    "İyi bir plan, başarının yarısıdır.",
-    "Zaman, hayatınızdaki en değerli kaynaktır.",
-    "İşinizi severek yapın, başarı kendiliğinden gelir.",
+    // ... (önceki alıntılar)
   ];
 
-  const pomodoroEndSound = new Audio("/zil.mp3");
-  const breakEndSound = new Audio("/zil.mp3");
+  let pomodoroEndSound;
+  let breakEndSound;
 
   useEffect(() => {
+    // Tarayıcı ortamında Audio nesnelerini oluştur
+    pomodoroEndSound = new Audio("/zil.mp3");
+    breakEndSound = new Audio("/zil.mp3");
+
     let interval = null;
     if (isActive) {
       interval = setInterval(() => {
@@ -93,13 +78,13 @@ const PomodoroTimer = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-blue-400 to-blue-600 text-white font-sans">
       <h1
-        className={`text-7xl max-sm:text-4xl max-sm:text-center font-extrabold mb-10 ${
+        className={`text-7xl font-extrabold mb-10 ${
           isBreak ? "text-green-200" : "text-white"
         }`}
       >
         {isBreak ? "Ara Zamanı!" : "Buhara Pomodoro Zamanlayıcı"}
       </h1>
-      <div className="text-7xl max-sm:text-5xl mb-10 font-semibold">{formatTime(time)}</div>
+      <div className="text-7xl mb-10 font-semibold">{formatTime(time)}</div>
       <div className="flex space-x-6">
         <button
           className={`w-32 py-3 rounded-lg shadow-lg transition-all duration-300 ${
@@ -119,7 +104,7 @@ const PomodoroTimer = () => {
         </button>
       </div>
       <div
-        className={`mt-10 text-2xl max-sm:text-xl text-center transition-opacity duration-500 ${
+        className={`mt-10 text-2xl text-center transition-opacity duration-500 ${
           quoteVisible ? "opacity-100" : "opacity-0"
         }`}
       >
