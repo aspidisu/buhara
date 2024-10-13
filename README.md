@@ -13,19 +13,19 @@ Buhara Pomodoro Zamanlayıcı, odaklanmanıza ve üretkenliğinizi artırmanıza
 ## Kurulum
 
 Projeyi klonlayın:
-\`\`\`bash
+```bash
 git clone https://github.com/kullanici_adi/buhara-pomodoro-timer.git
-\`\`\`
+```
 
 Bağımlılıkları yükleyin:
-\`\`\`bash
+```bash
 npm install
-\`\`\`
+```
 
 Projeyi başlatın:
-\`\`\`bash
+```bash
 npm run dev
-\`\`\`
+```
 
 ## Kullanım
 
