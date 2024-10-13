@@ -1,4 +1,4 @@
-"use client";
+"use client"; // Bileşenin tarayıcıda çalıştığını belirtir
 import { useState, useEffect } from "react";
 
 const PomodoroTimer = () => {
@@ -16,9 +16,11 @@ const PomodoroTimer = () => {
   let breakEndSound;
 
   useEffect(() => {
-    // Tarayıcı ortamında Audio nesnelerini oluştur
-    pomodoroEndSound = new Audio("/zil.mp3");
-    breakEndSound = new Audio("/zil.mp3");
+    if (typeof window !== "undefined") {
+      // Tarayıcıda çalışıyorsanız Audio nesnelerini oluşturun
+      pomodoroEndSound = new Audio("/zil.mp3");
+      breakEndSound = new Audio("/zil.mp3");
+    }
 
     let interval = null;
     if (isActive) {
