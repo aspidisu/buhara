@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { FaCog } from "react-icons/fa";
 
 const PomodoroTimer = () => {
   const [time, setTime] = useState(1500);
@@ -7,6 +8,14 @@ const PomodoroTimer = () => {
   const [isBreak, setIsBreak] = useState(false);
   const [motivationalQuote, setMotivationalQuote] = useState("");
   const [quoteVisible, setQuoteVisible] = useState(true);
+  const [isSettingTime, setIsSettingTime] = useState(true);
+  const [selectedTime, setSelectedTime] = useState(25);
+  const [showSettings, setShowSettings] = useState(false);
+  const [bgColor, setBgColor] = useState(
+    "bg-gradient-to-r from-blue-400 to-blue-600"
+  );
+  const [startButtonColor, setStartButtonColor] = useState("bg-teal-500");
+  const [resetButtonColor, setResetButtonColor] = useState("bg-gray-600");
 
   const quotes = [
     "Başarı, sürekli çaba gerektirir.",
@@ -83,7 +92,9 @@ const PomodoroTimer = () => {
   const resetTimer = () => {
     setIsActive(false);
     setIsBreak(false);
+    setIsSettingTime(true);
     setTime(1500);
+    setSelectedTime(25);
   };
 
   const formatTime = (time) => {
@@ -95,41 +106,154 @@ const PomodoroTimer = () => {
     )}`;
   };
 
+  const startTimerWithSelectedTime = () => {
+    setTime(selectedTime * 60);
+    setIsSettingTime(false);
+  };
+
+  const handleBgColorChange = (color) => {
+    setBgColor(color);
+    setShowSettings(false);
+  };
+
+  const handleStartButtonColorChange = (color) => {
+    setStartButtonColor(color);
+  };
+
+  const handleResetButtonColorChange = (color) => {
+    setResetButtonColor(color);
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-blue-400 to-blue-600 text-white font-sans">
-      <h1
-        className={`text-7xl font-extrabold mb-10 max-sm:text-4xl text-center ${
-          isBreak ? "text-green-200" : "text-white"
-        }`}
-      >
-        {isBreak ? "Ara Zamanı!" : "Buhara Pomodoro Zamanlayıcı"}
-      </h1>
-      <div className="text-7xl mb-10 font-semibold max-sm:text-6xl">{formatTime(time)}</div>
-      <div className="flex space-x-6">
-        <button
-          className={`w-32 py-3 rounded-lg shadow-lg transition-all duration-300 ${
-            isActive
-              ? "bg-red-500 hover:bg-red-600"
-              : "bg-teal-700 hover:bg-teal-600"
-          }`}
-          onClick={toggleTimer}
-        >
-          {isActive ? "Duraklat" : "Başla"}
-        </button>
-        <button
-          className="w-32 py-3 bg-gray-600 hover:bg-gray-700 rounded-lg shadow-lg transition duration-300"
-          onClick={resetTimer}
-        >
-          Sıfırla
-        </button>
+    <div
+      className={`${bgColor} flex flex-col items-center justify-center h-screen text-white font-sans`}
+    >
+      <div className="absolute top-4 left-4">
+        <FaCog
+          className="text-3xl cursor-pointer hover:text-gray-300 transition"
+          onClick={() => setShowSettings(!showSettings)}
+        />
       </div>
-      <div
-        className={`mt-10 text-2xl text-center transition-opacity duration-500 ${
-          quoteVisible ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        {motivationalQuote || "İşinize odaklanın!"}
-      </div>
+
+      {showSettings && (
+        <div className="absolute text-xl max-sm:text-base top-20 max-sm:top-16 left-4 bg-white text-black rounded-lg shadow-lg p-4 z-10">
+          <h3 className="mb-4">Arka Plan Rengini Seç</h3>
+          <div className="flex flex-wrap gap-2">
+            {[
+              "bg-gradient-to-r from-blue-400 to-blue-600",
+              "bg-gradient-to-r from-green-400 to-green-600",
+              "bg-gradient-to-r from-red-400 to-red-600",
+              "bg-gradient-to-r from-yellow-400 to-yellow-600",
+              "bg-gradient-to-r from-purple-400 to-purple-600",
+              "bg-gradient-to-r from-pink-400 to-pink-600",
+              "bg-gradient-to-r from-indigo-400 to-indigo-600",
+              "bg-gradient-to-r from-teal-400 to-teal-600",
+              "bg-gradient-to-r from-gray-400 to-gray-600",
+              "bg-gradient-to-r from-orange-400 to-orange-600",
+            ].map((colorClass, index) => (
+              <div
+                key={index}
+                className={`w-10 max-sm:w-7 h-10 max-sm:h-7 cursor-pointer rounded-lg ${colorClass}`}
+                onClick={() => handleBgColorChange(colorClass)}
+              />
+            ))}
+          </div>
+
+          <h3 className="mt-4 mb-2">Başla Buton Rengini Seç</h3>
+          <div className="flex flex-wrap gap-2">
+            {[
+              "bg-teal-500",
+              "bg-red-500",
+              "bg-green-500",
+              "bg-blue-500",
+              "bg-yellow-500",
+              "bg-purple-500",
+              "bg-pink-500",
+              "bg-indigo-500",
+              "bg-gray-500",
+              "bg-orange-500",
+            ].map((colorClass, index) => (
+              <div
+                key={index}
+                className={`w-10 max-sm:w-7 h-10 max-sm:h-7 cursor-pointer rounded-lg ${colorClass}`}
+                onClick={() => handleStartButtonColorChange(colorClass)}
+              />
+            ))}
+          </div>
+
+          <h3 className="mt-4 mb-2">Sıfırla Buton Rengini Seç</h3>
+          <div className="flex flex-wrap gap-2">
+            {[
+              "bg-teal-500",
+              "bg-red-500",
+              "bg-green-500",
+              "bg-blue-500",
+              "bg-yellow-500",
+              "bg-purple-500",
+              "bg-pink-500",
+              "bg-indigo-500",
+              "bg-gray-500",
+              "bg-orange-500",
+            ].map((colorClass, index) => (
+              <div
+                key={index}
+                className={`w-10 max-sm:w-7 h-10 max-sm:h-7 cursor-pointer rounded-lg ${colorClass}`}
+                onClick={() => handleResetButtonColorChange(colorClass)}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {isSettingTime ? (
+        <div className="flex flex-col items-center">
+          <h2 className="text-4xl max-sm:text-center font-semibold mb-5">
+            Pomodoro Süresini Ayarla
+          </h2>
+          <input
+            type="range"
+            min="5"
+            max="60"
+            value={selectedTime}
+            onChange={(e) => setSelectedTime(e.target.value)}
+            className="mb-5"
+            step="1"
+          />
+          <p className="text-2xl mb-5">{selectedTime} dakika</p>
+          <button
+            className={`w-32 py-3 ${startButtonColor} hover:bg-opacity-70 transition-all duration-300 rounded-lg shadow-lg`}
+            onClick={startTimerWithSelectedTime}
+          >
+            Başla
+          </button>
+        </div>
+      ) : (
+        <>
+          <h2 className="text-4xl max-sm:text-center font-semibold mb-5">
+            Buhara Pomodoro Zamanlayıcı
+          </h2>{" "}
+          <h1 className="text-6xl mb-5">{formatTime(time)}</h1>
+          <div className="flex gap-5">
+            <button
+              className={`w-32 py-3 ${startButtonColor} hover:bg-opacity-70 transition-all duration-300 rounded-lg shadow-lg`}
+              onClick={toggleTimer}
+            >
+              {isActive ? "Durdur" : "Başlat"}
+            </button>
+            <button
+              className={`w-32 py-3 ${resetButtonColor} hover:bg-opacity-70 transition-all duration-300 rounded-lg shadow-lg`}
+              onClick={resetTimer}
+            >
+              Sıfırla
+            </button>
+          </div>
+          {quoteVisible && (
+            <div className="mt-10 text-center">
+              <p className="text-xl italic">{motivationalQuote}</p>
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 };
