@@ -1,4 +1,4 @@
-"use client"; // Bileşenin tarayıcıda çalıştığını belirtir
+"use client";
 import { useState, useEffect } from "react";
 
 const PomodoroTimer = () => {
@@ -9,7 +9,26 @@ const PomodoroTimer = () => {
   const [quoteVisible, setQuoteVisible] = useState(true);
 
   const quotes = [
-    // ... (önceki alıntılar)
+    "Başarı, sürekli çaba gerektirir.",
+    "Hayallerine ulaşmak için çabalamaktan asla vazgeçme.",
+    "Zorluklar, başarının bir parçasıdır.",
+    "Küçük adımlar büyük başarılara yol açar.",
+    "Her gün daha iyi olmak için bir fırsattır.",
+    "Düşmekten korkma, kalkmaktan vazgeçmekten kork.",
+    "Bugün attığın adım, yarının temelini oluşturur.",
+    "Başarısızlık, başarının anahtarıdır.",
+    "Kendine inanmadan, kimse sana inanmaz.",
+    "Kazanmak için önce inanmalısın.",
+    "Zaman, en büyük servetindir; onu iyi kullan.",
+    "Hedeflerine ulaşmak için her gün bir adım at.",
+    "Başarı, konfor alanının dışında başlar.",
+    "Yapabileceğine inandığında, yarı yolda sayılırsın.",
+    "Her zorluk bir fırsat barındırır.",
+    "Bugünün işini yarına bırakma.",
+    "Hayallerinin peşinden koşarken yorulmaktan korkma.",
+    "En büyük başarılar, en büyük zorlukların ardından gelir.",
+    "İlerlemek için küçük adımlar yeterlidir.",
+    "Her yeni gün, yeni bir başlangıçtır.",
   ];
 
   let pomodoroEndSound;
@@ -17,7 +36,6 @@ const PomodoroTimer = () => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      // Tarayıcıda çalışıyorsanız Audio nesnelerini oluşturun
       pomodoroEndSound = new Audio("/zil.mp3");
       breakEndSound = new Audio("/zil.mp3");
     }
@@ -80,13 +98,13 @@ const PomodoroTimer = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-blue-400 to-blue-600 text-white font-sans">
       <h1
-        className={`text-7xl font-extrabold mb-10 ${
+        className={`text-7xl font-extrabold mb-10 max-sm:text-4xl text-center ${
           isBreak ? "text-green-200" : "text-white"
         }`}
       >
         {isBreak ? "Ara Zamanı!" : "Buhara Pomodoro Zamanlayıcı"}
       </h1>
-      <div className="text-7xl mb-10 font-semibold">{formatTime(time)}</div>
+      <div className="text-7xl mb-10 font-semibold max-sm:text-6xl">{formatTime(time)}</div>
       <div className="flex space-x-6">
         <button
           className={`w-32 py-3 rounded-lg shadow-lg transition-all duration-300 ${
