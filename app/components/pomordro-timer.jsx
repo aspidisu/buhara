@@ -197,7 +197,7 @@ const PomodoroTimer = () => {
       </div>
 
       {showInfo && (
-        <div className="absolute text-xl max-sm:text-base top-20 max-sm:top-16 left-4 bg-white text-black rounded-lg shadow-lg p-4 z-10 w-[24rem]">
+        <div className="absolute text-xl max-sm:text-base max-xs:text-sm top-20 max-sm:top-16 left-4 bg-white text-black rounded-lg shadow-lg p-4 z-10 w-[24rem] max-xs:w-[20.5rem]">
           <h3 className="mb-4 font-semibold">Buhara Nasıl Çalışır?</h3>
           <div className="flex flex-wrap gap-5">
             <p>
@@ -293,9 +293,9 @@ const PomodoroTimer = () => {
       )}
 
       {isSettingTime ? (
-        <div className="flex flex-col items-center">
-          <h1 className="text-5xl font-bold my-4">Buhara</h1>
-          <h2 className="text-4xl max-sm:text-center font-semibold mb-5">
+        <div className="flex flex-col items-center text-center">
+          <h1 className="text-5xl max-sm:text-4xl font-bold my-4">Buhara</h1>
+          <h2 className="text-4xl max-sm:text-2xl max-sm:text-center font-semibold mb-5">
             Çalışma Süresini Ayarla
           </h2>
           <div className="flex items-center gap-4 mb-5">
@@ -333,11 +333,11 @@ const PomodoroTimer = () => {
         </div>
       ) : (
         <>
-          <div className="flex flex-col items-center justify-center">
-            <h2 className="text-5xl max-sm:text-center font-bold mb-5">
+          <div className="flex flex-col items-center justify-center text-center">
+            <h2 className="text-5xl max-sm:text-3xl max-sm:text-center font-bold mb-5">
               Buhara
             </h2>{" "}
-            <h1 className="text-6xl mb-5">{formatTime(time)}</h1>
+            <h1 className="text-6xl max-sm:text-4xl mb-5">{formatTime(time)}</h1>
             <div className="flex gap-5">
               <button
                 className={`w-32 py-3 ${startButtonColor} hover:bg-opacity-70 transition-all duration-300 rounded-lg shadow-lg`}
