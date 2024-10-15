@@ -1,8 +1,8 @@
 import PomodoroTimer from "./components/pomordro-timer";
 
 export const metadata = {
-  title: "Buhara Pomodoro Zamanlayıcı",
-  description: "Buhara Pomodoro Zamanlayıcı",
+  title: "Buhara ",
+  description: "Buhara ",
 };
 
 export default function Home() {

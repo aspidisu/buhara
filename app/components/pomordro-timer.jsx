@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { FaCog } from "react-icons/fa";
+import { FaCog, FaInfoCircle } from "react-icons/fa";
 
 const PomodoroTimer = () => {
   const [time, setTime] = useState(1500);
@@ -11,11 +11,15 @@ const PomodoroTimer = () => {
   const [isSettingTime, setIsSettingTime] = useState(true);
   const [selectedTime, setSelectedTime] = useState(25);
   const [showSettings, setShowSettings] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
+
   const [bgColor, setBgColor] = useState(
     "bg-gradient-to-r from-blue-400 to-blue-600"
   );
   const [startButtonColor, setStartButtonColor] = useState("bg-teal-500");
   const [resetButtonColor, setResetButtonColor] = useState("bg-gray-600");
+  const [notes, setNotes] = useState([]);
+  const [newNote, setNewNote] = useState("");
 
   const quotes = [
     "Başarı, sürekli çaba gerektirir.",
@@ -95,6 +99,7 @@ const PomodoroTimer = () => {
     setIsSettingTime(true);
     setTime(1500);
     setSelectedTime(25);
+    setNotes([]);
   };
 
   const formatTime = (time) => {
@@ -111,6 +116,20 @@ const PomodoroTimer = () => {
     setIsSettingTime(false);
   };
 
+  const toggleSettings = () => {
+    setShowSettings(!showSettings);
+    if (showInfo) {
+      setShowInfo(false);
+    }
+  };
+
+  const toggleInfo = () => {
+    setShowInfo(!showInfo);
+    if (showSettings) {
+      setShowSettings(false);
+    }
+  };
+
   const handleBgColorChange = (color) => {
     setBgColor(color);
     setShowSettings(false);
@@ -124,6 +143,33 @@ const PomodoroTimer = () => {
     setResetButtonColor(color);
   };
 
+  const increaseTime = () => {
+    setSelectedTime((prev) => (prev < 60 ? prev + 1 : 60));
+  };
+
+  const decreaseTime = () => {
+    setSelectedTime((prev) => (prev > 5 ? prev - 1 : 5));
+  };
+
+  const quickSetTime = (minutes) => {
+    setSelectedTime(minutes);
+  };
+
+  const handleNoteAdd = () => {
+    if (newNote.trim()) {
+      const remainingTime = formatTime(time);
+      setNotes([...notes, `${newNote} ( ${remainingTime})`]);
+      setNewNote("");
+    }
+  };
+
+  const handleTextareaTransfer = () => {
+    if (newNote.trim() !== "") {
+      setNotes([...notes, { text: newNote, time: formatTime(time) }]);
+      setNewNote("");
+    }
+  };
+
   return (
     <div
       className={`${bgColor} flex flex-col items-center justify-center h-screen text-white font-sans`}
@@ -131,25 +177,58 @@ const PomodoroTimer = () => {
       <div className="absolute top-4 left-4">
         <FaCog
           className="text-3xl cursor-pointer hover:text-gray-300 transition"
-          onClick={() => setShowSettings(!showSettings)}
+          onClick={toggleSettings}
         />
       </div>
+
+      <div className="absolute top-4 left-14">
+        <FaInfoCircle
+          className="text-3xl cursor-pointer hover:text-gray-300 transition"
+          onClick={toggleInfo}
+        />
+      </div>
+
+      {showInfo && (
+        <div className="absolute text-xl max-sm:text-base top-20 max-sm:top-16 left-4 bg-white text-black rounded-lg shadow-lg p-4 z-10 w-[30rem]">
+          <h3 className="mb-4 font-semibold">Buhara Nasıl Çalışır?</h3>
+          <div className="flex flex-wrap gap-5">
+            <p>
+              Buhara, çalışma sürelerinizi daha verimli hale getirmek için
+              tasarlanmış bir uygulamadır. Uygulama, istediğiniz çalışma
+              süresini seçmenize olanak tanır ve bu süre boyunca tamamen
+              odaklanarak çalışmanızı sağlar.
+            </p>
+            <p>
+              {" "}
+              Çalışma süresi sona erdiğinde, 5 dakikalık kısa bir ara
+              verirsiniz. Bu ara, zihninizi dinlendirmek ve odaklanmanızı
+              tazelemek için önemlidir.{" "}
+            </p>
+            <p>
+              Uygulama, belirlediğiniz süreleri tutarak size geri bildirim
+              sağlar. Böylece, çalışma alışkanlıklarınızı takip edebilir ve
+              gerektiğinde ayarlamalar yapabilirsiniz. Buhara, verimliliğinizi
+              artırmak ve tükenmişliği önlemek amacıyla geliştirilmiştir.
+            </p>
+          </div>
+        </div>
+      )}
 
       {showSettings && (
         <div className="absolute text-xl max-sm:text-base top-20 max-sm:top-16 left-4 bg-white text-black rounded-lg shadow-lg p-4 z-10">
           <h3 className="mb-4">Arka Plan Rengini Seç</h3>
           <div className="flex flex-wrap gap-2">
             {[
-              "bg-gradient-to-r from-blue-400 to-blue-600",
-              "bg-gradient-to-r from-green-400 to-green-600",
-              "bg-gradient-to-r from-red-400 to-red-600",
-              "bg-gradient-to-r from-yellow-400 to-yellow-600",
-              "bg-gradient-to-r from-purple-400 to-purple-600",
-              "bg-gradient-to-r from-pink-400 to-pink-600",
-              "bg-gradient-to-r from-indigo-400 to-indigo-600",
-              "bg-gradient-to-r from-teal-400 to-teal-600",
-              "bg-gradient-to-r from-gray-400 to-gray-600",
-              "bg-gradient-to-r from-orange-400 to-orange-600",
+              "bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600",
+              "bg-gradient-to-r from-green-400 via-green-500 to-green-600",
+              "bg-gradient-to-r from-red-400 via-red-500 to-red-600",
+              "bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600",
+              "bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600",
+              "bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600",
+              "bg-gradient-to-r from-indigo-400 via-indigo-500 to-indigo-600",
+              "bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600",
+              "bg-gradient-to-r from-gray-400 via-gray-500 to-gray-600",
+              "bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600",
             ].map((colorClass, index) => (
               <div
                 key={index}
@@ -207,19 +286,36 @@ const PomodoroTimer = () => {
 
       {isSettingTime ? (
         <div className="flex flex-col items-center">
+          <h1 className="text-5xl font-bold my-4">Buhara</h1>
           <h2 className="text-4xl max-sm:text-center font-semibold mb-5">
-            Pomodoro Süresini Ayarla
+            Çalışma Süresini Ayarla
           </h2>
-          <input
-            type="range"
-            min="5"
-            max="60"
-            value={selectedTime}
-            onChange={(e) => setSelectedTime(e.target.value)}
-            className="mb-5"
-            step="1"
-          />
-          <p className="text-2xl mb-5">{selectedTime} dakika</p>
+          <div className="flex items-center gap-4 mb-5">
+            <button
+              className="bg-gray-600 px-3 py-1 rounded-lg"
+              onClick={decreaseTime}
+            >
+              -
+            </button>
+            <p className="text-2xl">{selectedTime} dakika</p>
+            <button
+              className="bg-gray-600 px-3 py-1 rounded-lg"
+              onClick={increaseTime}
+            >
+              +
+            </button>
+          </div>
+          <div className="flex gap-4 mb-5">
+            {[15, 25, 30, 45].map((minute) => (
+              <button
+                key={minute}
+                className="bg-gray-700 px-4 py-2 rounded-lg hover:bg-opacity-80 transition"
+                onClick={() => quickSetTime(minute)}
+              >
+                {minute} dk
+              </button>
+            ))}
+          </div>
           <button
             className={`w-32 py-3 ${startButtonColor} hover:bg-opacity-70 transition-all duration-300 rounded-lg shadow-lg`}
             onClick={startTimerWithSelectedTime}
@@ -229,29 +325,62 @@ const PomodoroTimer = () => {
         </div>
       ) : (
         <>
-          <h2 className="text-4xl max-sm:text-center font-semibold mb-5">
-            Buhara Pomodoro Zamanlayıcı
-          </h2>{" "}
-          <h1 className="text-6xl mb-5">{formatTime(time)}</h1>
-          <div className="flex gap-5">
-            <button
-              className={`w-32 py-3 ${startButtonColor} hover:bg-opacity-70 transition-all duration-300 rounded-lg shadow-lg`}
-              onClick={toggleTimer}
-            >
-              {isActive ? "Durdur" : "Başlat"}
-            </button>
-            <button
-              className={`w-32 py-3 ${resetButtonColor} hover:bg-opacity-70 transition-all duration-300 rounded-lg shadow-lg`}
-              onClick={resetTimer}
-            >
-              Sıfırla
-            </button>
-          </div>
-          {quoteVisible && (
-            <div className="mt-10 text-center">
-              <p className="text-xl italic">{motivationalQuote}</p>
+          <div className="flex flex-col items-center justify-center">
+            <h2 className="text-5xl max-sm:text-center font-bold mb-5">
+              Buhara
+            </h2>{" "}
+            <h1 className="text-6xl mb-5">{formatTime(time)}</h1>
+            <div className="flex gap-5">
+              <button
+                className={`w-32 py-3 ${startButtonColor} hover:bg-opacity-70 transition-all duration-300 rounded-lg shadow-lg`}
+                onClick={toggleTimer}
+              >
+                {isActive ? "Durdur" : "Başlat"}
+              </button>
+              <button
+                className={`w-32 py-3 ${resetButtonColor} hover:bg-opacity-70 transition-all duration-300 rounded-lg shadow-lg`}
+                onClick={resetTimer}
+              >
+                Sıfırla
+              </button>
             </div>
-          )}
+            <div
+              className={`mt-10 text-2xl max-sm:text-xl text-center transition-opacity duration-500 ${
+                quoteVisible ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              {motivationalQuote || "İşinize odaklanın!"}
+            </div>
+            <div className="mt-10 flex items-start justify-center">
+              <textarea
+                className="bg-gray-700 w-80 p-4 rounded-lg text-white mb-4"
+                placeholder="Not ekle..."
+                value={newNote}
+                onChange={(e) => setNewNote(e.target.value)}
+              ></textarea>
+              <button
+                className="bg-green-500 px-4 py-2 rounded-lg ml-2"
+                onClick={handleNoteAdd}
+              >
+                Not Ekle
+              </button>
+            </div>{" "}
+            <div className="mx-3">
+              <h4 className="text-2xl font-semibold  mt-4 mb-2 text-center">
+                Notlar
+              </h4>
+              <div className="flex items-center justify-center gap-5 flex-wrap">
+                {notes.map((note, index) => (
+                  <textarea
+                    key={index}
+                    value={note}
+                    readOnly
+                    className="w-80 h-24 mb-2 p-2 border-gray-300 rounded-lg bg-gray-700 "
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
         </>
       )}
     </div>
