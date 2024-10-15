@@ -1,6 +1,7 @@
 "use client";
+import Link from "next/link";
 import { useState, useEffect } from "react";
-import { FaCog, FaInfoCircle } from "react-icons/fa";
+import { FaCog, FaInfoCircle, FaGithub } from "react-icons/fa";
 
 const PomodoroTimer = () => {
   const [time, setTime] = useState(1500);
@@ -188,8 +189,15 @@ const PomodoroTimer = () => {
         />
       </div>
 
+      <div className="absolute top-4 left-24">
+        <Link href="https://github.com/aspidisu/buhara" target="_blank">
+          {" "}
+          <FaGithub className="text-3xl cursor-pointer hover:text-gray-300 transition" />
+        </Link>
+      </div>
+
       {showInfo && (
-        <div className="absolute text-xl max-sm:text-base top-20 max-sm:top-16 left-4 bg-white text-black rounded-lg shadow-lg p-4 z-10 w-[30rem]">
+        <div className="absolute text-xl max-sm:text-base top-20 max-sm:top-16 left-4 bg-white text-black rounded-lg shadow-lg p-4 z-10 w-[24rem]">
           <h3 className="mb-4 font-semibold">Buhara Nasıl Çalışır?</h3>
           <div className="flex flex-wrap gap-5">
             <p>
@@ -353,7 +361,7 @@ const PomodoroTimer = () => {
             </div>
             <div className="mt-10 flex items-start justify-center">
               <textarea
-                className="bg-gray-700 w-80 p-4 rounded-lg text-white mb-4"
+                className="bg-gray-700 w-80 max-sm:w-60 p-4 rounded-lg text-white mb-4"
                 placeholder="Not ekle..."
                 value={newNote}
                 onChange={(e) => setNewNote(e.target.value)}
